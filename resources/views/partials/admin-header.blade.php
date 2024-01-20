@@ -10,7 +10,7 @@
         <!-- Logo icon -->
         <b class="logo-icon col-12 p-0 text-center">
           <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-          <i class="mdi mdi-cash-register"></i> Aplikasi kasir
+          <i class="mdi mdi-chart-line-stacked"></i> Aplikasi laporan
           <!-- Dark Logo icon -->
           {{-- <img src="/assets/images/logo-white.png" alt="homepage" class="light-logo" style="width:100%"/> --}}
         </b>

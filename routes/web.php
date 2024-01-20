@@ -49,8 +49,8 @@ Route::group(['prefix'=> 'dashboard','middleware'=>['auth:user']], function(){
 // });
 
 // API
-Route::get('/api/posts', [APIController::class, 'posts']);
-Route::get('/api/admin/{admin:id}', [APIController::class, 'admin']);
-Route::get('/api/cashier/{cashier:id}', [APIController::class, 'cashier']);
-Route::get('/api/product/{product:id}', [APIController::class, 'product']);
-Route::get('/api/shop/{shop:id}', [APIController::class, 'shop']);
+// Route::get('/api/posts', [APIController::class, 'posts']);
+// Route::get('/api/admin/{admin:id}', [APIController::class, 'admin']);
+// Route::get('/api/cashier/{cashier:id}', [APIController::class, 'cashier']);
+Route::get('/api/report/{report:id}', [APIController::class, 'report']);
+// Route::get('/api/shop/{shop:id}', [APIController::class, 'shop']);

@@ -29,7 +29,7 @@ class AuthController extends Controller
                 $request->session()->regenerate();
                 return redirect()->intended('/admin/');
             }
-            return back()->with('error','Login failed');
+            return back()->with('error','Username/password salahh');
         }
 
         if($request->type=="user"){
@@ -37,7 +37,7 @@ class AuthController extends Controller
                 $request->session()->regenerate();
                 return redirect()->intended('/dashboard/');
             }
-            return back()->with('error','Login failed!');
+            return back()->with('error','Username/password salahh!');
         }
 
         else{

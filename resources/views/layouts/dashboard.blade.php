@@ -29,7 +29,7 @@
     
     <div id="main-wrapper">
       @include('partials.admin-header')
-      @include('partials.shop-sidebar')
+      @include('partials.dashboard-sidebar')
       <div class="page-wrapper">
         @yield('content')
         <footer class="footer text-center">

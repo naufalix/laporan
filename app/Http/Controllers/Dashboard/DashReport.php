@@ -57,4 +57,50 @@ class DashReport extends Controller
         Report::create($validatedData);
         return ['status'=>'success','message'=>'Laporan berhasil ditambahkan'];
     }
+
+    public function update(Request $request){
+        $validatedData = $request->validate([
+            'id'=>'required|numeric',
+            'tanggal'=>'required',
+            'marketing'=>'required',
+            'pendamping'=>'required',
+            'tujuan'=>'required',
+            'alamat'=>'required',
+            'hasil'=>'required',
+        ]);
+        $validatedData['status'] = 0;
+        
+        $report = Report::find($request->id);
+
+        //Check if the report is found
+        if($report){
+            
+            //Update report
+            $report->update($validatedData);
+            return ['status'=>'success','message'=>'Laporan berhasil diupdate'];
+            
+        }else{
+            return ['status'=>'error','message'=>'Laporan tidak ditemukan'];
+        }
+    }
+
+    public function destroy(Request $request){
+        
+        $validatedData = $request->validate([
+            'id'=>'required|numeric',
+        ]);
+
+        $report = Report::find($request->id);
+
+        //Check if the report is found
+        if($report){
+            
+            //Delete report
+            Report::destroy($request->id);
+            return ['status'=>'success','message'=>'Laporan berhasil dihapus'];
+        
+        }else{
+            return ['status'=>'error','message'=>'Laporan tidak ditemukan'];
+        }
+    }
 }

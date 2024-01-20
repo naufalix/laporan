@@ -6,7 +6,7 @@
     <div id="loginform">
       <div class="text-center p-t-20 p-b-20">
         <b class="logo-icon col-12 p-0 text-center" style="font-size: 20px;">
-          <i class="mdi mdi-cash-register"></i> Aplikasi laporan
+          <i class="mdi mdi-chart-line-stacked"></i> Aplikasi laporan
         </b>
         {{-- <span class="db"><img src="/assets/images/logoX.jpg" alt="logo" style="width:200px"/></span> --}}
       </div>

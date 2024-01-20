@@ -57,8 +57,10 @@
                     @endif
                   </td>
                   <td>
+                    @if ($r->status==0||$r->status==1)
                     <button type="button" class="btn btn-info btn-icon" data-toggle="modal" data-target="#edit" onclick="edit({{$r->id}})"><i class="mdi mdi-pencil"></i></button>
                     <button type="button" class="btn btn-danger btn-icon" data-toggle="modal" data-target="#hapus" onclick="hapus({{$r->id}})"><i class="fa fa-times"></i></button>
+                    @endif
                   </td>
                 </tr>
                 @endforeach
@@ -110,7 +112,7 @@
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="et">Edit menu</h5>
+        <h5 class="modal-title" id="et">Edit laporan</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
@@ -120,15 +122,38 @@
         <input type="hidden" class="d-none" id="eid" name="id" required>
         <div class="modal-body">
           <div class="row mb-2">
-            <div class="col-12">
-              <label class="required fw-bold mb-2">Nama menu</label>
-              <input type="text" class="form-control" id="enm" name="name" required>
+            <div class="col-6">
+              <label class="required fw-bold mb-2">Tanggal</label>
+              <input type="datetime-local" class="form-control" id="etg" name="tanggal" required>
+            </div>
+            <div class="col-6">
+              <label class="required fw-bold mb-2">Marketing</label>
+              <input type="text" class="form-control" id="emr" name="marketing" required>
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-12">
-              <label class="required fw-bold mb-2">Harga</label>
-              <input type="number" class="form-control" id="epr" name="price" required>
+            <div class="col-6">
+              <label class="required fw-bold mb-2">Pendamping</label>
+              <input type="text" class="form-control" id="epd" name="pendamping" required>
+            </div>
+            <div class="col-6">
+              <label class="required fw-bold mb-2">Tujuan</label>
+              <input type="text" class="form-control" id="etj" name="tujuan" required>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-6">
+              <label class="required fw-bold mb-2">Alamat</label>
+              <input type="alamat" class="form-control" id="eal" name="alamat" required>
+            </div>
+            <div class="col-6">
+              <label class="required fw-bold mb-2">Hasil</label>
+              <select class="form-control" id="ehs" name="hasil">
+                <option value="CNC">CANCEL</option>
+                <option value="KPR">KETEMU PROSPEK (KPR)</option>
+                <option value="KTP">KETEMU TIDAK PROSPEK (KTP)</option>
+                <option value="TKO">TIDAK KETEMU ORANG (TKO)</option>
+              </select>
             </div>
           </div>
         </div>
@@ -146,7 +171,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Hapus product</h5>
+        <h5 class="modal-title">Hapus laporan</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
@@ -155,7 +180,7 @@
         @csrf
         <input type="hidden" class="d-none" id="hi" name="id">
         <div class="modal-body">
-          <p id="hd">Apakah anda yakin ingin menghapus product ini?</p>
+          <p id="hd">Apakah anda yakin ingin menghapus laporan ini?</p>
         </div>
         <div class="modal-footer">
           <button type="reset" class="btn btn-secondary me-3" data-dismiss="modal">Batal</button>
@@ -175,28 +200,32 @@
   
   function edit(id){
 		$.ajax({
-			url: "/api/product/"+id,
+			url: "/api/report/"+id,
 			type: 'GET',
 			dataType: 'json', // added data type
 			success: function(response) {
         var mydata = response.data;
 				$("#eid").val(id);
-				$("#enm").val(mydata.name);
-				$("#epr").val(mydata.price);
-        $("#et").text("Edit "+mydata.name);
+				$("#etg").val(mydata.tanggal);
+				$("#emr").val(mydata.marketing);
+				$("#epd").val(mydata.pendamping);
+				$("#etj").val(mydata.tujuan);
+				$("#eal").val(mydata.alamat);
+				$("#ehs").val(mydata.hasil);
+        // $("#et").text("Edit "+mydata.name);
 			}
 		});
 	}
 	
   function hapus(id){
 		$.ajax({
-			url: "/api/product/"+id,
+			url: "/api/report/"+id,
 			type: 'GET',
 			dataType: 'json', // added data type
 			success: function(response) {
         var mydata = response.data;
 				$("#hi").val(id);
-				$("#hd").text('Apakah anda yakin ingin menghapus "'+mydata.name+'"?');
+				// $("#hd").text('Apakah anda yakin ingin menghapus "'+mydata.name+'"?');
 			}
 		});
 	}
