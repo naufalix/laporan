@@ -10,8 +10,13 @@
           </a>
         </li>
         <li class="sidebar-item">
-          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/shop" aria-expanded="false">
-            <i class="mdi mdi-store"></i><span class="hide-menu">Kantin</span>
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/laporan" aria-expanded="false">
+            <i class="mdi mdi-file-chart"></i><span class="hide-menu">Data laporan</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/admin/anggota" aria-expanded="false">
+            <i class="mdi mdi-account-group"></i><span class="hide-menu">Data anggota</span>
           </a>
         </li>
         <li class="sidebar-item d-none">

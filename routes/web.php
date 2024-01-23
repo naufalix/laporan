@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\APIController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Admin\AdminDashboard;
-use App\Http\Controllers\Admin\AdminAdmin;
-use App\Http\Controllers\Admin\AdminShop;
+use App\Http\Controllers\Admin\AdminHome;
+use App\Http\Controllers\Admin\AdminReport;
+use App\Http\Controllers\Admin\AdminUser;
 use App\Http\Controllers\Dashboard\DashReport;
 
 Route::get('/', function () {
@@ -15,19 +15,21 @@ Route::get('/', function () {
 // AUTH
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/register', [AuthController::class, 'index2']);
+Route::post('/register', [AuthController::class, 'register']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 // ADMIN PAGE
 Route::group(['prefix'=> 'admin','middleware'=>['auth:admin']], function(){
-    Route::get('/', [AdminDashboard::class, 'index']);
-    Route::get('/admin', [AdminAdmin::class, 'index']);
-    Route::get('/shop', [AdminShop::class, 'index']);
+    Route::get('/', [AdminHome::class, 'index']);
+    Route::get('/laporan', [AdminReport::class, 'index']);
+    Route::get('/anggota', [AdminUser::class, 'index']);
     
-    Route::post('/admin', [AdminAdmin::class, 'postHandler']);
-    Route::post('/shop', [AdminShop::class, 'postHandler']);
+    Route::post('/laporan', [AdminReport::class, 'postHandler']);
+    Route::post('/anggota', [AdminUser::class, 'postHandler']);
 });
 
-// OWNERS PAGE
+// DASHBOARD PAGE
 Route::group(['prefix'=> 'dashboard','middleware'=>['auth:user']], function(){
     Route::get('/', function () {return redirect('/dashboard/buat-laporan');});
     Route::get('/buat-laporan', [DashReport::class, 'index']);

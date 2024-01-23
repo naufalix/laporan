@@ -10,11 +10,6 @@
           </a>
         </li>
         <li class="sidebar-item">
-          <a class="sidebar-link waves-effect waves-dark sidebar-link" href="#" aria-expanded="false">
-            <i class="mdi mdi-account-group"></i><span class="hide-menu">Anggotaku</span>
-          </a>
-        </li>
-        <li class="sidebar-item">
           <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/dashboard/laporan" aria-expanded="false">
             <i class="mdi mdi-file-chart"></i><span class="hide-menu">Data laporan</span>
           </a>

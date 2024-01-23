@@ -17,7 +17,7 @@ class DashReport extends Controller
 
     public function index2(){
         $user_id = auth()->user()->id;
-        return view('dashboard.laporan',[
+        return view('dashboard.report',[
             "title" => "Dashboard | Data laporan",
             "reports" => Report::whereUserId($user_id)->get(),
         ]);

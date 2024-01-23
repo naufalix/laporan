@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-use App\Models\Shop;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class AdminShop extends Controller
+class AdminUser extends Controller
 {
 
     public function index(){
         // if(auth()->user()->role=="admin"){
-            return view('admin.shop',[
-                "title" => "Admin | Kantin",
-                "shops" => Shop::all(),
+            return view('admin.user',[
+                "title" => "Admin | Data anggota",
+                "users" => User::all(),
             ]);
         // }else{
         //     return redirect('/admin/dashboard')->with("info","Anda tidak memiliki akses");
@@ -24,36 +24,34 @@ class AdminShop extends Controller
     public function postHandler(Request $request){
         if($request->submit=="store"){
             $res = $this->store($request);
-            return back()->with($res['status'],$res['message']);
+            return redirect('/admin/user')->with($res['status'],$res['message']);
         }
         if($request->submit=="update"){
             $res = $this->update($request);
-            return back()->with($res['status'],$res['message']);
-        }
-        if($request->submit=="destroy"){
+            return redirect('/admin/user')->with($res['status'],$res['message']);
+        }if($request->submit=="destroy"){
             $res = $this->destroy($request);
-            return back()->with($res['status'],$res['message']);
-            // return back()->with("info","Fitur hapus sementara dinonaktifkan");
-        }
-        else{
-            return back()->with("info","Submit not found");
+            return redirect('/admin/user')->with($res['status'],$res['message']);
+            // return redirect('/dashboard/user')->with("info","Fitur hapus sementara dinonaktifkan");
+        }else{
+            return redirect('/admin/user')->with("info","Submit not found");
         }
     }
 
     public function store(Request $request){
         $validatedData = $request->validate([
             'name'=>'required',
+            'role'=>'required',
             'username' => 'required',
             'password' => 'required',
-            'owner'=>'required',
         ]);
         $validatedData['password'] = Hash::make($validatedData['password']);
 
         // Check Username
-        if(!Shop::whereUsername($request->username)->first()){
+        if(!User::whereUsername($request->username)->first()){
         // Create new user
-            Shop::create($validatedData);
-            return ['status'=>'success','message'=>'Kantin berhasil ditambahkan'];
+            User::create($validatedData);
+            return ['status'=>'success','message'=>'User berhasil ditambahkan'];
         }else{
             return ['status'=>'error','message'=>'Username telah terpakai'];
         }
@@ -63,38 +61,37 @@ class AdminShop extends Controller
         $validatedData = $request->validate([
             'id'=>'required|numeric',
             'name'=>'required',
-            'username'=>'required',
-            'owner'=>'required',
+            'role'=>'required',
         ]);
-        $validatedData['password'] = $request->password;
+        $validatedData['username'] = $request->username;
 
-        $shop = Shop::find($request->id);
-        $oldUsername = $shop->username;
+        $user = User::find($request->id);
+        $oldUsername = $user->username;
         $newUsername = $request->username;
         
         //Check if password empty
         if(!$request->password){
-            $validatedData['password'] = $shop->password;
+            $validatedData['password'] = $user->password;
         }else{
             $validatedData['password'] = Hash::make($request->password);
         }
         
-        //Check if the shop is found
-        if($shop){
+        //Check if the user is found
+        if($user){
             //Check username
             if($newUsername!=$oldUsername){
-                if(Shop::whereUsername($request->username)->first()){
+                if(User::whereUsername($request->username)->first()){
                     return ['status'=>'error','message'=>'Username telah terpakai'];
                 }
-                // Update shop
-                $shop->update($validatedData);   
-                return ['status'=>'success','message'=>'Kantin berhasil diedit.']; 
+                // Update user
+                $user->update($validatedData);   
+                return ['status'=>'success','message'=>'User berhasil diedit.']; 
             }
-            // Update shop
-            $shop->update($validatedData);   
-            return ['status'=>'success','message'=>'Kantin berhasil diedit']; 
+            // Update user
+            $user->update($validatedData);   
+            return ['status'=>'success','message'=>'User berhasil diedit']; 
         }else{
-            return ['status'=>'error','message'=>'Kantin tidak ditemukan'];
+            return ['status'=>'error','message'=>'User tidak ditemukan'];
         }
     }
 
@@ -104,16 +101,15 @@ class AdminShop extends Controller
             'id'=>'required|numeric',
         ]);
 
-        $shop = Shop::find($request->id);
+        $user = User::find($request->id);
 
-        //Check if the shop is found
-        if($shop){
-            // $shop->invoice()->delete();    // Delete invoice
-            // $shop->cashier()->delete();    // Delete cashier
-            Shop::destroy($request->id);    // Delete user
-            return ['status'=>'success','message'=>'Kantin berhasil dihapus'];
+        //Check if the user is found
+        if($user){
+            $user->logbook()->delete();      // Delete logbook
+            User::destroy($request->id);    // Delete user
+            return ['status'=>'success','message'=>'User berhasil dihapus'];
         }else{
-            return ['status'=>'error','message'=>'Kantin tidak ditemukan'];
+            return ['status'=>'error','message'=>'User tidak ditemukan'];
         }
     }
 

@@ -3,10 +3,10 @@
 <div class="page-breadcrumb">
   <div class="row">
     <div class="col-12 d-flex no-block align-items-center">
-      <h4 class="page-title">Pengaturan Kantin</h4>
-      <div class="ml-auto text-right">
+      <h4 class="page-title">Pengaturan Anggota</h4>
+      {{-- <div class="ml-auto text-right">
         <button class="btn btn-info" data-toggle="modal" data-target="#tambah">Tambah</button>
-      </div>
+      </div> --}}
     </div>
   </div>
 </div>
@@ -15,34 +15,34 @@
     <div class="col-12">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Daftar kantin</h5>
+          <h5 class="card-title">Daftar anggota</h5>
           <div class="table-responsive">
             <table id="myTable" class="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th style="width: 30px">No.</th>
-                  <th>Nama Kantin</th>
-                  <th>Username</th>
-                  <th>Nama Pemilik</th>
+                  <th>Nama</th>
+                  <th>Email</th>
+                  <th style="width: 100px">Jumlah laporan</th>
                   <th style="width: 120px">Tanggal dibuat</th>
-                  <th style="width: 80px">Action</th>
+                  {{-- <th style="width: 80px">Action</th> --}}
                 </tr>
               </thead>
               <tbody>
-                @foreach ($shops as $s)
+                @foreach ($users as $u)
                 <tr>
                   <td>{{$loop->iteration}}</td>
-                  <td>{{$s->name}}</td>
-                  <td>{{$s->username}}</td>
-                  <td>{{$s->owner}}</td>
+                  <td>{{$u->name}}</td>
+                  <td>{{$u->email}}</td>
+                  <td>{{$u->report->count()}}</td>
                   @php
-                    $date = date_create($s->created_at);
+                    $date = date_create($u->created_at);
                   @endphp
                   <td>{{date_format($date,"d/m/Y H:i")}}</td>
-                  <td>
-                    <button type="button" class="btn btn-info btn-icon" data-toggle="modal" data-target="#edit" onclick="edit({{$s->id}})"><i class="mdi mdi-pencil"></i></button>
-                    <button type="button" class="btn btn-danger btn-icon" data-toggle="modal" data-target="#hapus" onclick="hapus({{$s->id}})"><i class="fa fa-times"></i></button>
-                  </td>
+                  {{-- <td>
+                    <button type="button" class="btn btn-info btn-icon" data-toggle="modal" data-target="#edit" onclick="edit({{$u->id}})"><i class="mdi mdi-pencil"></i></button>
+                    <button type="button" class="btn btn-danger btn-icon" data-toggle="modal" data-target="#hapus" onclick="hapus({{$u->id}})"><i class="fa fa-times"></i></button>
+                  </td> --}}
                 </tr>
                 @endforeach
               </tbody>
@@ -121,14 +121,13 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-12 col-md-5">
+            <div class="col-12 col-md-6">
               <label class="required fw-bold mb-2">Username</label>
               <input type="text" class="form-control" id="eun" name="username" required>
             </div>
-            <div class="col-12 col-md-7">
+            <div class="col-12 col-md-6">
               <label class="required fw-bold mb-2">Password</label>
               <input type="password" class="form-control" id="eps" name="password">
-              <sub class="text-danger">*Kosongkan jika tidak ingin menghapus password</sub>
             </div>
           </div>
         </div>

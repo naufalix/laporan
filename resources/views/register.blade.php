@@ -6,7 +6,7 @@
     <div id="loginform">
       <div class="text-center p-t-20 p-b-20">
         <b class="logo-icon col-12 p-0 text-center" style="font-size: 20px;">
-          <i class="mdi mdi-chart-line-stacked"></i> Aplikasi laporan
+          Buat akun baru
         </b>
         {{-- <span class="db"><img src="/assets/images/logoX.jpg" alt="logo" style="width:200px"/></span> --}}
       </div>
@@ -17,35 +17,32 @@
           <div class="col-12">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="mdi mdi-email"></i></span>
+                <span class="input-group-text bg-primary text-white"><i class="mdi mdi-account"></i></span>
               </div>
-              <input type="email" class="form-control form-control-lg" name="email" placeholder="Email" aria-describedby="basic-addon1" required>
+              <input type="text" class="form-control form-control-lg" name="name" placeholder="Name" required>
             </div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text bg-warning text-white" id="basic-addon2"><i class="mdi mdi-lock"></i></span>
+                <span class="input-group-text bg-success text-white"><i class="mdi mdi-email"></i></span>
               </div>
-              <input type="password" class="form-control form-control-lg" name="password" placeholder="Password" aria-describedby="basic-addon1" required="">
+              <input type="email" class="form-control form-control-lg" name="email" placeholder="Email" required>
             </div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text bg-info text-white" id="basic-addon2"><i class="mdi mdi-clipboard-account"></i></span>
+                <span class="input-group-text bg-warning text-white"><i class="mdi mdi-lock"></i></span>
               </div>
-              <select class="form-control form-control-lg" name="type" aria-describedby="basic-addon1" required>
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-              </select>
+              <input type="password" class="form-control form-control-lg" name="password" placeholder="Password" required="">
             </div>
           </div>
         </div>
         <div>
-          <p>Belum punya kaun? <a href="/register">daftar disini!</a></p>
+          <p>Sudah punya akun? <a href="/login">login disini!</a></p>
         </div>
         <div class="row border-top border-secondary">
           <div class="col-12">
             <div class="form-group row">
               <div class="p-t-20 mx-auto">
-                <button class="btn btn-success" type="submit">Login</button>
+                <button class="btn btn-success" type="submit">Register</button>
               </div>
             </div>
           </div>

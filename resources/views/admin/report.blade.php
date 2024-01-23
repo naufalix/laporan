@@ -1,12 +1,9 @@
-@extends('layouts.dashboard')
+@extends('layouts.admin')
 @section('content')
 <div class="page-breadcrumb">
   <div class="row">
     <div class="col-12 d-flex no-block align-items-center">
       <h4 class="page-title">Data laporan</h4>
-      <div class="ml-auto text-right">
-        <a href="/dashboard/buat-laporan" class="btn btn-info">Tambah</a>
-      </div>
     </div>
   </div>
 </div>
@@ -17,11 +14,12 @@
         <div class="card-body">
           <h5 class="card-title">Daftar laporan</h5>
           <div class="table-responsive">
-            <table id="myTable" class="table table-striped table-bordered">
+            <table id="myTable" class="table table-striped table-bordered" style="min-width: 1500px">
               <thead>
                 <tr>
                   <th style="width: 30px">No.</th>
                   <th>Tanggal</th>
+                  <th>Nama anggota</th>
                   <th>Marketing</th>
                   <th>Pendamping</th>
                   <th>Tujuan</th>
@@ -39,6 +37,7 @@
                     $date = date_create($r->tanggal);
                   @endphp
                   <td>{{date_format($date,"d/m/Y H:i")}}</td>
+                  <td>{{$r->user->name}}</td>
                   <td>{{$r->marketing}}</td>
                   <td>{{$r->pendamping}}</td>
                   <td>{{$r->tujuan}}</td>
@@ -52,15 +51,13 @@
                   </td>
                   <td>
                     @if ($r->status==0) <span class="badge badge-warning">Menunggu konfirmasi</span>
-                    @elseif ($r->status==1) <span class="badge badge-danger">Revisi</span>
-                    @elseif ($r->status==2) <span class="badge badge-success">Disetujui</span>
+                    @elseif ($r->status==1) <span class="badge badge-success">Disetujui</span>
+                    @elseif ($r->status==2) <span class="badge badge-danger">Revisi</span>
                     @endif
                   </td>
                   <td>
-                    @if ($r->status==0||$r->status==1)
                     <button type="button" class="btn btn-info btn-icon" data-toggle="modal" data-target="#edit" onclick="edit({{$r->id}})"><i class="mdi mdi-pencil"></i></button>
                     <button type="button" class="btn btn-danger btn-icon" data-toggle="modal" data-target="#hapus" onclick="hapus({{$r->id}})"><i class="fa fa-times"></i></button>
-                    @endif
                   </td>
                 </tr>
                 @endforeach
@@ -156,6 +153,16 @@
               </select>
             </div>
           </div>
+          <div class="row mb-2">
+            <div class="col-12">
+              <label class="required fw-bold mb-2">Status</label>
+              <select class="form-control" id="est" name="status">
+                <option value="0">Menunggu konfirmasi</option>
+                <option value="1">Disetujui</option>
+                <option value="2">Revisi</option>
+              </select>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="reset" class="btn btn-secondary me-3" data-dismiss="modal">Batal</button>
@@ -212,6 +219,7 @@
 				$("#etj").val(mydata.tujuan);
 				$("#eal").val(mydata.alamat);
 				$("#ehs").val(mydata.hasil);
+				$("#est").val(mydata.status);
         // $("#et").text("Edit "+mydata.name);
 			}
 		});

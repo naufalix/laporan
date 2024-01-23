@@ -17,6 +17,14 @@ class AuthController extends Controller
             "title" => "Login",
         ]);
     }
+    
+    public function index2(){
+        if(Auth::guard('admin')->check()){ return redirect('/admin/'); }
+        if(Auth::guard('user')->check()){ return redirect('/dashboard/'); }
+        return view('register',[
+            "title" => "Register",
+        ]);
+    }
 
     public function login(Request $request){
         $credentials = $request->validate([
@@ -42,6 +50,24 @@ class AuthController extends Controller
 
         else{
             return back();
+        }
+    }
+
+    public function register(Request $request){
+        $validatedData = $request->validate([
+            'name'=>'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+        $validatedData['password'] = Hash::make($validatedData['password']);
+
+        // Check email
+        if(!User::whereEmail($request->email)->first()){
+        // Create new user
+            User::create($validatedData);
+            return redirect('/login')->with('success','User berhasil ditambahkan');
+        }else{
+            return back()->with('error','Email telah terpakai');
         }
     }
 
