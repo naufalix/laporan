@@ -22,12 +22,14 @@
                 <tr>
                   <th style="width: 30px">No.</th>
                   <th>Tanggal</th>
-                  <th>Marketing</th>
+                  <th>Consultant</th>
                   <th>Pendamping</th>
                   <th>Tujuan</th>
                   <th>Alamat</th>
                   <th>Hasil</th>
                   <th>Status</th>
+                  <th>Nasabah</th>
+                  <th>Penawaran</th>
                   <th style="width: 80px">Action</th>
                 </tr>
               </thead>
@@ -39,12 +41,19 @@
                     $date = date_create($r->tanggal);
                   @endphp
                   <td>{{date_format($date,"d/m/Y H:i")}}</td>
-                  <td>{{$r->marketing}}</td>
+                  <td>{{$r->consultant}}</td>
                   <td>{{$r->pendamping}}</td>
-                  <td>{{$r->tujuan}}</td>
+                  <td>
+                    @if ($r->tujuan=="KN") Kunjungan Nasabah
+                    @elseif ($r->tujuan=="APP") Appointment (APP)
+                    @elseif ($r->tujuan=="FU") Follow up (FU)
+                    @elseif ($r->tujuan=="AG") Agreement (AG)
+                    @endif
+                  </td>
                   <td>{{$r->alamat}}</td>
                   <td>
                     @if ($r->hasil=="CNC") CANCEL
+                    @elseif ($r->hasil=="HPR") HOT PROSPEK (HPR)
                     @elseif ($r->hasil=="KPR") KETEMU PROSPEK (KPR)
                     @elseif ($r->hasil=="KTP") KETEMU TIDAK PROSPEK (KTP)
                     @elseif ($r->hasil=="TKO") TIDAK KETEMU ORANG (TKO)
@@ -56,6 +65,8 @@
                     @elseif ($r->status==2) <span class="badge badge-danger">Revisi</span>
                     @endif
                   </td>
+                  <td>{{$r->nasabah}}</td>
+                  <td>{{$r->penawaran}}</td>
                   <td>
                     @if ($r->status==0||$r->status==2)
                     <button type="button" class="btn btn-info btn-icon" data-toggle="modal" data-target="#edit" onclick="edit({{$r->id}})"><i class="mdi mdi-pencil"></i></button>
@@ -127,8 +138,8 @@
               <input type="datetime-local" class="form-control" id="etg" name="tanggal" required>
             </div>
             <div class="col-6">
-              <label class="required fw-bold mb-2">Marketing</label>
-              <input type="text" class="form-control" id="emr" name="marketing" required>
+              <label class="required fw-bold mb-2">Consultant</label>
+              <input type="text" class="form-control" id="ecn" name="consultant" required>
             </div>
           </div>
           <div class="row mb-2">
@@ -138,7 +149,12 @@
             </div>
             <div class="col-6">
               <label class="required fw-bold mb-2">Tujuan</label>
-              <input type="text" class="form-control" id="etj" name="tujuan" required>
+              <select class="form-control" id="etj" name="tujuan" required>
+                <option value="KN">Kunjungan Nasabah (KN)</option>
+                <option value="APP">Appointment (APP)</option>
+                <option value="FU">Follow up (FU)</option>
+                <option value="AG">Agreement (AG)</option>
+              </select>
             </div>
           </div>
           <div class="row mb-2">
@@ -150,10 +166,21 @@
               <label class="required fw-bold mb-2">Hasil</label>
               <select class="form-control" id="ehs" name="hasil">
                 <option value="CNC">CANCEL</option>
+                <option value="HPR">HOT PROSPEK (HPR)</option>
                 <option value="KPR">KETEMU PROSPEK (KPR)</option>
                 <option value="KTP">KETEMU TIDAK PROSPEK (KTP)</option>
                 <option value="TKO">TIDAK KETEMU ORANG (TKO)</option>
               </select>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-6">
+              <label class="required fw-bold mb-2">Nasabah</label>
+              <input type="text" class="form-control" id="ens" name="nasabah" required>
+            </div>
+            <div class="col-6">
+              <label class="required fw-bold mb-2">Penawaran</label>
+              <input type="text" class="form-control" id="epn" name="penawaran" required>
             </div>
           </div>
         </div>
@@ -207,11 +234,13 @@
         var mydata = response.data;
 				$("#eid").val(id);
 				$("#etg").val(mydata.tanggal);
-				$("#emr").val(mydata.marketing);
+				$("#ecn").val(mydata.consultant);
 				$("#epd").val(mydata.pendamping);
 				$("#etj").val(mydata.tujuan);
 				$("#eal").val(mydata.alamat);
 				$("#ehs").val(mydata.hasil);
+				$("#ens").val(mydata.nasabah);
+				$("#epn").val(mydata.penawaran);
         // $("#et").text("Edit "+mydata.name);
 			}
 		});

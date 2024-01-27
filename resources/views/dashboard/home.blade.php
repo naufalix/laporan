@@ -25,8 +25,8 @@
                   <input type="datetime-local" class="form-control" name="tanggal" required>
                 </div>
                 <div class="col-12 col-md-6 mb-2">
-                  <label class="required fw-bold mb-2">Marketing</label>
-                  <input type="text" class="form-control" name="marketing" required>
+                  <label class="required fw-bold mb-2">Consultant</label>
+                  <input type="text" class="form-control" name="consultant" required>
                 </div>
                 <div class="col-12 col-md-6 mb-2">
                   <label class="required fw-bold mb-2">Pendamping</label>
@@ -34,7 +34,12 @@
                 </div>
                 <div class="col-12 col-md-6 mb-2">
                   <label class="required fw-bold mb-2">Tujuan</label>
-                  <input type="text" class="form-control" name="tujuan" required>
+                  <select class="form-control" name="tujuan" required>
+                    <option value="KN">Kunjungan Nasabah (KN)</option>
+                    <option value="APP">Appointment (APP)</option>
+                    <option value="FU">Follow up (FU)</option>
+                    <option value="AG">Agreement (AG)</option>
+                  </select>
                 </div>
                 <div class="col-12 col-md-6 mb-2">
                   <label class="required fw-bold mb-2">Alamat</label>
@@ -44,10 +49,19 @@
                   <label class="required fw-bold mb-2">Hasil</label>
                   <select class="form-control" name="hasil">
                     <option value="CNC">CANCEL</option>
+                    <option value="HPR">HOT PROSPEK (HPR)</option>
                     <option value="KPR">KETEMU PROSPEK (KPR)</option>
                     <option value="KTP">KETEMU TIDAK PROSPEK (KTP)</option>
                     <option value="TKO">TIDAK KETEMU ORANG (TKO)</option>
                   </select>
+                </div>
+                <div class="col-12 col-md-6 mb-2">
+                  <label class="required fw-bold mb-2">Nasabah</label>
+                  <input type="text" class="form-control" name="nasabah" required>
+                </div>
+                <div class="col-12 col-md-6 mb-2">
+                  <label class="required fw-bold mb-2">Penawaran</label>
+                  <input type="alamat" class="form-control" name="penawaran" required>
                 </div>
               </div>
             </div>

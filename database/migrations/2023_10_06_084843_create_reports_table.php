@@ -16,11 +16,13 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('tanggal');
-            $table->string('marketing');
+            $table->string('consultant');
             $table->string('pendamping');
             $table->string('tujuan');
             $table->string('alamat');
             $table->string('hasil');
+            $table->string('nasabah');
+            $table->string('penawaran');
             $table->integer('status');
             $table->timestamps();
         });

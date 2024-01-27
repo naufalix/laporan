@@ -44,11 +44,13 @@ class DashReport extends Controller
     public function store(Request $request){
         $validatedData = $request->validate([
             'tanggal'=>'required',
-            'marketing'=>'required',
+            'consultant'=>'required',
             'pendamping'=>'required',
             'tujuan'=>'required',
             'alamat'=>'required',
             'hasil'=>'required',
+            'nasabah'=>'required',
+            'penawaran'=>'required',
         ]);
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['status'] = 0;
@@ -62,11 +64,13 @@ class DashReport extends Controller
         $validatedData = $request->validate([
             'id'=>'required|numeric',
             'tanggal'=>'required',
-            'marketing'=>'required',
+            'consultant'=>'required',
             'pendamping'=>'required',
             'tujuan'=>'required',
             'alamat'=>'required',
             'hasil'=>'required',
+            'nasabah'=>'required',
+            'penawaran'=>'required',
         ]);
         $validatedData['status'] = 0;
         

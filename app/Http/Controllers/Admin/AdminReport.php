@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Report;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -15,6 +16,7 @@ class AdminReport extends Controller
             return view('admin.report',[
                 "title" => "Admin | Data laporan",
                 "reports" => Report::all(),
+                "users" => User::all(),
             ]);
         // }else{
         //     return redirect('/admin/dashboard')->with("info","Anda tidak memiliki akses");
@@ -42,33 +44,35 @@ class AdminReport extends Controller
 
     public function store(Request $request){
         $validatedData = $request->validate([
-            'name'=>'required',
-            'username' => 'required',
-            'password' => 'required',
-            'owner'=>'required',
+            'user_id'=>'required|numeric',
+            'tanggal'=>'required',
+            'consultant'=>'required',
+            'pendamping'=>'required',
+            'tujuan'=>'required',
+            'alamat'=>'required',
+            'hasil'=>'required',
+            'nasabah'=>'required',
+            'penawaran'=>'required',
         ]);
-        $validatedData['password'] = Hash::make($validatedData['password']);
-
-        // Check Username
-        if(!Shop::whereUsername($request->username)->first()){
-        // Create new user
-            Shop::create($validatedData);
-            return ['status'=>'success','message'=>'Kantin berhasil ditambahkan'];
-        }else{
-            return ['status'=>'error','message'=>'Username telah terpakai'];
-        }
+        $validatedData['status'] = 0;
+        
+        //Create report
+        Report::create($validatedData);
+        return ['status'=>'success','message'=>'Laporan berhasil ditambahkan'];
     }
 
     public function update(Request $request){
         $validatedData = $request->validate([
             'id'=>'required|numeric',
             'tanggal'=>'required',
-            'marketing'=>'required',
+            'consultant'=>'required',
             'pendamping'=>'required',
             'tujuan'=>'required',
             'alamat'=>'required',
             'hasil'=>'required',
             'status'=>'required',
+            'nasabah'=>'required',
+            'penawaran'=>'required',
         ]);
 
         $report = Report::find($request->id);
