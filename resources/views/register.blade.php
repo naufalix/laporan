@@ -33,6 +33,37 @@
               </div>
               <input type="password" class="form-control form-control-lg" name="password" placeholder="Password" required="">
             </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text bg-primary text-white"><i class="mdi mdi-account"></i></span>
+              </div>
+              <input type="number" class="form-control form-control-lg" name="telp" placeholder="No telepon" required>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text bg-primary text-white"><i class="mdi mdi-account"></i></span>
+              </div>
+              <input type="text" class="form-control form-control-lg" name="city" placeholder="Tempat lahir" required>
+            </div>
+            <label for="">Tanggal lahir</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text bg-primary text-white"><i class="mdi mdi-account"></i></span>
+              </div>
+              <input type="date" class="form-control form-control-lg" name="birthday" placeholder="Tanggal lahir" required>
+            </div>
+            <label for="">Upline</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text bg-primary text-white"><i class="mdi mdi-account"></i></span>
+              </div>
+              <select class="form-control" name="upline" required>
+                <option value="">Tidak ada</option>
+                @foreach ($users as $u)
+                  <option value="{{$u->id}}">{{$u->name}}</option>
+                @endforeach
+              </select>
+            </div>
           </div>
         </div>
         <div>

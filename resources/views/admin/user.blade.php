@@ -23,6 +23,9 @@
                   <th style="width: 30px">No.</th>
                   <th>Nama</th>
                   <th>Email</th>
+                  <th>No telepon</th>
+                  <th>TTL</th>
+                  <th>Upline</th>
                   <th style="width: 100px">Jumlah laporan</th>
                   <th style="width: 120px">Tanggal dibuat</th>
                   {{-- <th style="width: 80px">Action</th> --}}
@@ -34,6 +37,16 @@
                   <td>{{$loop->iteration}}</td>
                   <td>{{$u->name}}</td>
                   <td>{{$u->email}}</td>
+                  <td>{{$u->telp}}</td>
+                  @php
+                    $bd = date_create($u->birthday);
+                  @endphp
+                  <td>{{$u->city}}, {{date_format($bd,"d F Y")}}</td>
+                  <td>
+                    @if ($u->upline)
+                      {{$users->find($u->upline)->name}}
+                    @endif
+                  </td>
                   <td>{{$u->report->count()}}</td>
                   @php
                     $date = date_create($u->created_at);

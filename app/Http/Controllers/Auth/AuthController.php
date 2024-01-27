@@ -23,6 +23,7 @@ class AuthController extends Controller
         if(Auth::guard('user')->check()){ return redirect('/dashboard/'); }
         return view('register',[
             "title" => "Register",
+            "users" => User::all(),
         ]);
     }
 
@@ -55,15 +56,19 @@ class AuthController extends Controller
 
     public function register(Request $request){
         $validatedData = $request->validate([
-            'name'=>'required',
+            'name' => 'required',
             'email' => 'required',
             'password' => 'required',
+            'city' => 'required',
+            'telp' => 'required',
+            'birthday' => 'required',
         ]);
+        $validatedData['upline'] = $request->upline;
         $validatedData['password'] = Hash::make($validatedData['password']);
 
         // Check email
         if(!User::whereEmail($request->email)->first()){
-        // Create new user
+            // Create new user
             User::create($validatedData);
             return redirect('/login')->with('success','User berhasil ditambahkan');
         }else{
