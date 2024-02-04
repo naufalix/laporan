@@ -15,7 +15,10 @@
     <div class="col-12">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Daftar laporan</h5>
+          <div class="d-flex">
+            <h5 class="card-title mr-auto">Daftar laporan</h5>
+            <button class="btn btn-primary mb-2" onclick="dataexport('print')"><i class="fa fa-print"></i> Print</button>
+          </div>
           <div class="table-responsive">
             <table id="myTable" class="table table-striped table-bordered" style="min-width: 1500px">
               <thead>
@@ -276,7 +279,19 @@
 
 @section('script')
 <script>
-  $('#myTable').DataTable();
+  $('#myTable').DataTable({
+    "aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All Pages"]],
+    "pageLength": 10,
+    "order": [[0, 'desc']],
+    "language": {
+      "paginate": {
+        "previous": "<",
+        "next": ">"
+      }
+    },
+    "dom": 'Blfrtip',
+    "buttons": ['copy', 'csv', 'excel', 'pdf', 'print']
+  });
   
   function edit(id){
 		$.ajax({
