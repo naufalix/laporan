@@ -15,6 +15,19 @@ class DashReport extends Controller
         ]);
     }
 
+    public function print(Request $request){
+        $user_id = auth()->user()->id;
+        $year = $request['year'];
+        $month = $request['month'];
+
+        return view('dashboard.report-print',[
+            "title" => "Dashboard | Print laporan",
+            "year" => $year,
+            "month" => $month,
+            "reports" => Report::whereUserId($user_id)->whereYear('tanggal', '=', $year)->whereMonth('tanggal', '=', $month)->get(),
+        ]);
+    }
+
     public function index2(){
         $user_id = auth()->user()->id;
         return view('dashboard.report',[

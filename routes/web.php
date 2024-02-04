@@ -35,6 +35,7 @@ Route::group(['prefix'=> 'dashboard','middleware'=>['auth:user']], function(){
     Route::get('/buat-laporan', [DashReport::class, 'index']);
     Route::get('/anggota', [DashMember::class, 'index']);
     Route::get('/laporan', [DashReport::class, 'index2']);
+    Route::get('/printreport/{year}/{month}', [DashReport::class, 'print']);
     
     Route::post('/buat-laporan', [DashReport::class, 'postHandler']);
     Route::post('/anggota', [DashMember::class, 'postHandler']);

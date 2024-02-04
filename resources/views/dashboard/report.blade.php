@@ -17,7 +17,8 @@
         <div class="card-body">
           <div class="d-flex">
             <h5 class="card-title mr-auto">Daftar laporan</h5>
-            <button class="btn btn-primary mb-2" onclick="dataexport('print')"><i class="fa fa-print"></i> Print</button>
+            <button class="btn btn-primary mb-2 d-none" onclick="dataexport('print')"><i class="fa fa-print"></i> Print</button>
+            <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#print"><i class="fa fa-print"></i> Print</button>
           </div>
           <div class="table-responsive">
             <table id="myTable" class="table table-striped table-bordered">
@@ -222,6 +223,36 @@
   </div>
 </div>
 
+<div class="modal fade" id="print" tabindex="-1" role="dialog"aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Print laporan</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <form class="form" method="post" action="">
+        @csrf
+        <input type="hidden" class="d-none" id="hi" name="id">
+        <div class="modal-body">
+          <div class="row mb-2">
+            <div class="col-12">
+              <label class="required fw-bold mb-2">Pilih bulan</label>
+              <input type="month" class="form-control" id="month" name="month" required>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="reset" class="btn btn-secondary me-3" data-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-primary" onClick="printreport()">Print</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
 @endsection
 
 @section('script')
@@ -239,6 +270,17 @@
     "dom": 'Blfrtip',
     "buttons": ['copy', 'csv', 'excel', 'pdf', 'print']
   });
+
+  function printreport(){
+    var month = $("#month").val().replace("-", "/")
+    if(month){
+      window.open('/dashboard/printreport/'+month,'POPUP WINDOW TITLE HERE','width=800,height=800').print()
+    }else{
+      alert("Harap pilih bulan terlebih dahulu");
+    }
+    // MyWindow=window.open('/dashboard/logbook/print','MyWindow','width=800,height=600'); 
+    // return false;
+  }
   
   function edit(id){
 		$.ajax({
