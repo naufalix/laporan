@@ -39,7 +39,7 @@
           </div>
         </div>
         <div>
-          <p>Belum punya kaun? <a href="/register">daftar disini!</a></p>
+          <p>Belum punya akun? <a href="/register">daftar disini!</a></p>
         </div>
         <div class="row border-top border-secondary">
           <div class="col-12">
